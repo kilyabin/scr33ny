@@ -23,13 +23,42 @@ The screen goes black. OLED pixels turn off. Burn-in protection kicks in.
 
 ## Install
 
+### Pre-built binary (recommended)
+
+Download the latest binary from [Releases](https://github.com/kilyabin/scr33ny/releases/latest):
+
 ```bash
-git clone <repo>
+# x86_64 (most desktops/laptops)
+curl -Lo scr33ny https://github.com/kilyabin/scr33ny/releases/latest/download/scr33ny-x86_64-linux
+chmod +x scr33ny
+sudo mv scr33ny /usr/local/bin/
+
+# ARM64 (Raspberry Pi 4+, etc.)
+curl -Lo scr33ny https://github.com/kilyabin/scr33ny/releases/latest/download/scr33ny-aarch64-linux
+chmod +x scr33ny
+sudo mv scr33ny /usr/local/bin/
+```
+
+**Runtime requirements:** Wayland compositor, `libwayland-client`, `libxkbcommon`.  
+These are present on any Wayland desktop (Sway, Hyprland, GNOME Wayland, KDE Wayland).
+
+### Build from source
+
+Requires a Rust toolchain (`rustup.rs`) and Wayland dev headers:
+
+```bash
+# Arch Linux
+sudo pacman -S wayland libxkbcommon pkgconf
+
+# Ubuntu / Debian
+sudo apt install libwayland-dev libxkbcommon-dev pkg-config
+```
+
+```bash
+git clone https://github.com/kilyabin/scr33ny
 cd scr33ny
 cargo install --path .
 ```
-
-Requires a Rust toolchain (`rustup.rs`). No system libraries beyond Wayland.
 
 ---
 
