@@ -1,7 +1,7 @@
 # scr33ny
 
 > [!WARNING]
-> This project was primarily built for personal use. Expect rough edges, missing features, and breaking changes without notice.
+> This project was primarily built for personal use. Expect rough edges, missing features, and breaking changes without notice. That said, I'm open to changing anything if you want to contribute.
 
 OLED-friendly screensaver for Linux / Wayland with customization support.
 
