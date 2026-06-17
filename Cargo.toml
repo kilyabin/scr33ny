@@ -1,0 +1,34 @@
+[package]
+name = "scr33ny"
+version = "0.1.0"
+edition = "2021"
+description = "OLED-friendly screensaver with Material 3 Expressive widgets"
+license = "MIT"
+authors = ["itlxrd <ilyakm@icloud.com>"]
+
+[[bin]]
+name = "scr33ny"
+path = "src/main.rs"
+
+[dependencies]
+winit      = "0.29"
+softbuffer = "0.4"
+image      = { version = "0.25", features = ["gif", "png", "jpeg", "bmp"] }
+serde      = { version = "1", features = ["derive"] }
+toml       = "0.8"
+tokio      = { version = "1", features = ["rt", "rt-multi-thread", "time", "sync", "macros"] }
+reqwest    = { version = "0.12", features = ["json"] }
+fontdue    = "0.8"
+chrono     = "0.4"
+dirs         = "5"
+shellexpand  = "3"
+clap         = { version = "4", features = ["derive"] }
+anyhow     = "1"
+log        = "0.4"
+env_logger = "0.11"
+
+[profile.release]
+opt-level     = 3
+lto           = true
+codegen-units = 1
+strip         = true

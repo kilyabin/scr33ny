@@ -1,0 +1,94 @@
+# scr33ny — OLED screensaver config
+# Copy to ~/.config/scr33ny/config.toml
+
+# ── Screensaver ───────────────────────────────────────────────────────────────
+# type: blank | gif | image | text
+
+[screensaver]
+type = "blank"               # pure black (default, OLED-optimal)
+
+# ── GIF example ───────────────────────────────────────────────────────────────
+# [screensaver]
+# type = "gif"
+# path = "~/.config/scr33ny/cat.gif"
+# scale = "fit"              # fit | fill | original
+
+# ── Image example ─────────────────────────────────────────────────────────────
+# [screensaver]
+# type = "image"
+# path = "~/.config/scr33ny/wallpaper.png"
+# scale = "fill"
+
+# ── Text animation example ────────────────────────────────────────────────────
+# [screensaver]
+# type = "text"
+# content = "scr33ny"
+# font_size = 96.0
+# color = "#ffffff"
+# animation = "float"        # float | typewriter | fade
+
+# ── Display settings ─────────────────────────────────────────────────────────
+
+[display]
+monitor       = 0            # monitor index (0 = primary). See: scr33ny monitors
+burn_shift    = 2            # pixel shift for OLED burn-in prevention
+shift_interval = 120         # seconds between shifts
+
+# ── Idle daemon ───────────────────────────────────────────────────────────────
+
+[daemon]
+enabled      = false         # set true to use: scr33ny daemon
+idle_timeout = 300           # seconds of inactivity before activating
+
+# ── Widgets ───────────────────────────────────────────────────────────────────
+# Each widget is a [[widgets]] block.
+# position.x: left | center | right | <percent 0-100>
+# position.y: top  | center | bottom | <percent 0-100>
+
+# Digital clock (center screen)
+[[widgets]]
+type         = "clock"
+style        = "digital"     # digital | analog
+font_size    = 72.0
+color        = "#ffffff"
+show_seconds = true
+
+[widgets.position]
+x = "center"
+y = "center"
+
+# Date below the clock
+[[widgets]]
+type      = "date"
+font_size = 28.0
+color     = "#aaaaaa"
+format    = "%A, %B %d"      # chrono strftime format
+
+[widgets.position]
+x = "center"
+y = 62.0                     # 62% from top
+
+# Weather widget (requires OpenWeatherMap API key)
+# [[widgets]]
+# type      = "weather"
+# api_key   = "YOUR_OWM_API_KEY"   # openweathermap.org
+# location  = "Moscow"
+# units     = "metric"             # metric | imperial
+# font_size = 22.0
+# color     = "#cccccc"
+#
+# [widgets.position]
+# x = "right"
+# y = "top"
+
+# Analog clock example
+# [[widgets]]
+# type         = "clock"
+# style        = "analog"
+# font_size    = 40.0           # controls clock size
+# color        = "#ffffff"
+# show_seconds = true
+#
+# [widgets.position]
+# x = "center"
+# y = "center"
