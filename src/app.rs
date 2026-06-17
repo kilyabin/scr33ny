@@ -4,7 +4,7 @@ use std::time::{Duration, Instant};
 
 use anyhow::Result;
 use winit::{
-    event::{ElementState, Event, KeyEvent, WindowEvent},
+    event::{ElementState, Event, KeyEvent, StartCause, WindowEvent},
     event_loop::{ControlFlow, EventLoop},
     keyboard::{KeyCode, PhysicalKey},
     window::{Fullscreen, WindowBuilder},
@@ -139,9 +139,14 @@ pub fn run(config: Config, monitor_idx: usize) -> Result<()> {
                 }
             }
 
+            // Timer expired or first run — schedule a redraw
+            Event::NewEvents(StartCause::ResumeTimeReached { .. } | StartCause::Init) => {
+                window.request_redraw();
+            }
+
+            // All events processed — sleep until next frame
             Event::AboutToWait => {
                 elwt.set_control_flow(ControlFlow::WaitUntil(Instant::now() + frame_time));
-                window.request_redraw();
             }
 
             _ => {}
