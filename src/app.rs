@@ -1,6 +1,6 @@
 use std::num::NonZeroU32;
 use std::rc::Rc;
-use std::time::Instant;
+use std::time::{Duration, Instant};
 
 use anyhow::Result;
 use winit::{
@@ -55,8 +55,16 @@ pub fn run(config: Config, monitor_idx: usize) -> Result<()> {
     let mut screensaver: Box<dyn Screensaver> = build_screensaver(&config, font.clone())?;
     let mut widgets: Vec<Box<dyn Widget>>     = build_widgets(&config, font)?;
 
+    // Adaptive FPS: blank/image need only 1–2 fps, animations up to config.display.fps
+    let target_fps = match &config.screensaver {
+        ScreensaverConfig::Blank | ScreensaverConfig::Image { .. } => {
+            config.display.fps.min(2)
+        }
+        _ => config.display.fps,
+    }.max(1);
+    let frame_time = Duration::from_millis(1000 / target_fps as u64);
+
     let event_loop = EventLoop::new()?;
-    event_loop.set_control_flow(ControlFlow::Poll);
 
     let monitors: Vec<_> = event_loop.available_monitors().collect();
     let monitor = monitors.get(monitor_idx).or_else(|| monitors.first()).cloned();
@@ -131,7 +139,10 @@ pub fn run(config: Config, monitor_idx: usize) -> Result<()> {
                 }
             }
 
-            Event::AboutToWait => window.request_redraw(),
+            Event::AboutToWait => {
+                elwt.set_control_flow(ControlFlow::WaitUntil(Instant::now() + frame_time));
+                window.request_redraw();
+            }
 
             _ => {}
         }

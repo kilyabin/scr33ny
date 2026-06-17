@@ -147,11 +147,13 @@ pub struct DisplayConfig {
     /// Anti-burn-in pixel shift in pixels, applied every shift_interval seconds
     pub burn_shift:     u32,
     pub shift_interval: u64,
+    /// Target frames per second. Lower = less CPU. Blank/image need only 1–2.
+    pub fps: u32,
 }
 
 impl Default for DisplayConfig {
     fn default() -> Self {
-        Self { monitor: 0, burn_shift: 2, shift_interval: 120 }
+        Self { monitor: 0, burn_shift: 2, shift_interval: 120, fps: 30 }
     }
 }
 

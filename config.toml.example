@@ -30,9 +30,10 @@ type = "blank"               # pure black (default, OLED-optimal)
 # ── Display settings ─────────────────────────────────────────────────────────
 
 [display]
-monitor       = 0            # monitor index (0 = primary). See: scr33ny monitors
-burn_shift    = 2            # pixel shift for OLED burn-in prevention
+monitor        = 0           # monitor index (0 = primary). See: scr33ny monitors
+burn_shift     = 2           # pixel shift for OLED burn-in prevention
 shift_interval = 120         # seconds between shifts
+fps            = 30          # max frames per second (blank/image auto-cap at 2)
 
 # ── Idle daemon ───────────────────────────────────────────────────────────────
 
